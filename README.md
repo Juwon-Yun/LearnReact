@@ -5,9 +5,12 @@
 ```js
 npx create-react-app ProjectName
 
-npm install react-bootstrap bootstrap
-
 cd ProjectName
 
 npm start
+
+npm install react-bootstrap bootstrap
+
+npm install react-router-dom@5      
+
 ```

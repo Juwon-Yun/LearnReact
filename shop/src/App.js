@@ -2,12 +2,13 @@ import './App.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useState } from 'react';
 import Data from './data.js'
+import { Link, Route, Switch} from 'react-router-dom'
+import Detail from './Detail.js'
 
 
 function App() {
 
   let [shose, setShose] = useState(Data);
-
   
   return (
     <div className="App">
@@ -31,11 +32,20 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="container">
-        <div className="column">
-          <Shose data={shose}/>
-        </div>
-      </div>
+      <Route exact path={"/"}>
+        <div className="container">
+          <div className="column">
+            <Shose data={shose}/>
+          </div>
+        </div>        
+      </Route>
+
+      <Route path={"/detail"}>
+        <Detail/>
+      </Route>
+      {/* <Route path={"/ww"} component={Navbar}></Route>     */}
+
+      
 
     </div>
 
