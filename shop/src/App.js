@@ -8,6 +8,16 @@ function App() {
 
   let [shose, setShose] = useState(Data);
 
+  const iterShose = () => {
+    const temp = [...shose]
+    return temp.map( (el, i) => 
+      <div className="col-md-4">
+        <img src={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} alt="" width="100%" />
+        <h4> { el.title }</h4>
+        <p> {el.content }</p>
+      </div>
+    )
+  }
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -32,7 +42,7 @@ function App() {
 
       <div className="container">
         <div className="column">
-          <div className="col-md-4">
+          {/* <div className="col-md-4">
             <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" alt="" />
             <h4> { shose[0].title } </h4>
             <p> { shose[0].content }</p>
@@ -46,7 +56,8 @@ function App() {
           <img src="https://codingapple1.github.io/shop/shoes3.jpg" alt="" width="100%" />
             <h4>{shose[2].title}</h4>
             <p> {shose[2].content} </p>
-          </div>
+        </div> */}
+          {iterShose()}
         </div>
       </div>
 
