@@ -14,12 +14,13 @@ function App() {
     <div className="App">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="/">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              {/* react router를 이용한 버튼 만들기 */}
+              <Nav.Link> <Link to={"/"}>Home</Link></Nav.Link>
+              <Nav.Link> <Link to={"/detail"}>Detail</Link> </Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -32,6 +33,7 @@ function App() {
         </Container>
       </Navbar>
 
+      <Switch>
       <Route exact path={"/"}>
         <div className="container">
           <div className="column">
@@ -45,10 +47,16 @@ function App() {
       </Route>
       {/* <Route path={"/ww"} component={Navbar}></Route>     */}
 
+      {/* react-router는 매칭이되는것을 모두 다 보여주기 때문에 보임 */}
+      <Route path={"/:id"}>
+        <div>아무거나 적었을 때 이거보여주셈</div>
+      </Route>
+
+      {/* Route 중복을 허용하지 않는 문법 => Switch  ex) "/"가 매칭되어 중복되어 Route가 보일 때 */}
+    </Switch>
       
 
     </div>
-
 
   );
 

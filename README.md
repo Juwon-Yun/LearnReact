@@ -11,6 +11,17 @@ npm start
 
 npm install react-bootstrap bootstrap
 
-npm install react-router-dom@5      
+npm install react-router-dom@5.2.0  
+
+
+```
+
+##### Install Dependency
+
+```js
+
+npm i
+or
+yarn
 
 ```
