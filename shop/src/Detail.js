@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory, useParams} from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
+import './Detail.scss'
 
 // styled-components의 사용법
 let Box = styled.div`
@@ -29,8 +30,12 @@ function Detail(props) {
       <Box>
         {/* props로 색상입히기 중괄호 생략 가능함 */}
         {/* <Title color={ 'white' }> Detail </Title> */}
-        <Title color='white'> Detail </Title>
+        {/* <Title color='white'> Detail </Title> */}
+        <Title className='red'> Detail </Title>
       </Box>
+      <div className="my-alert">
+        <p>재고가 얼마남지 않았습니다.</p>
+      </div>
       <div className="row">
       <div className="col-md-6">
         <img src={`https://codingapple1.github.io/shop/shoes${findContent.id+1}.jpg`} width="100%" alt=''/>
