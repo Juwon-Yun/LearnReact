@@ -1,28 +1,38 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { useHistory, useParams} from 'react-router-dom/cjs/react-router-dom.min'
 
-function Detail() {
+function Detail(props) {
 
   // useHistory hook 변수 선언
   let history = useHistory()
 
+  // useParams hook 변수 선언
+  let { id } = useParams()
+
+  // find() method => 주어진 판별 함수를 만족하는 첫 번째 요소의 값을 반환한다. 없으면 undefined 반환
+  let findContent = props.data.find( (content) => content.id === +id )
+
+
   return (
     <div className="container">
       <div className="row">
-        <div className="col-md-6">
-          <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
-        </div>
-        <div className="col-md-6 mt-4">
-          <h4 className="pt-5">상품명</h4>
-          <p>상품설명</p>
-          <p>120000원</p>
-          <button className="btn btn-danger">주문하기</button> 
-          <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
-          {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
-        </div>
+        
+      <div className="col-md-6">
+        <img src={`https://codingapple1.github.io/shop/shoes${findContent.id+1}.jpg`} width="100%" />
+      </div>
+      <div className="col-md-6 mt-4">
+        <h4 className="pt-5">{findContent.title}</h4>
+        <p>{findContent.content}</p>
+        <p>{findContent.price}</p>
+        <button className="btn btn-danger">주문하기</button> 
+        <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
+        {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
+      </div>
+      
       </div>
     </div>
   )
+
 }
 
 export default Detail

@@ -41,9 +41,9 @@ function App() {
           </div>
         </div>        
       </Route>
-
-      <Route path={"/detail"}>
-        <Detail/>
+      {/* :(콜론) 기호 => URL Parameter */}
+      <Route path={"/detail/:id"}>
+        <Detail data={shose}/>
       </Route>
       {/* <Route path={"/ww"} component={Navbar}></Route>     */}
 
