@@ -3,6 +3,9 @@ import React, { useEffect, useState} from 'react'
 import { useHistory, useParams} from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
 import './Detail.scss'
+import { StockContext } from './App.js'
+import { Nav } from 'react-bootstrap';
+import { CSSTransition} from 'react-transition-group' 
 
 // styled-components의 사용법
 let Box = styled.div`
@@ -34,6 +37,10 @@ function Detail(props) {
 
   let [alertFlag, setAlertFlag] = useState(true)
 
+  let [tap, setTap] = useState(0)
+
+  let [animationSwitch, setAnimationSwitch] = useState(false)
+
   // useEffect hook은 적은 순서대로 사용
   // useEffect hook 3 여러가지 useEffect를 사용할 때 여러개 쓰면됨
   // useEffect hook 1, 컴포넌트가 렌더링될 때, mount
@@ -49,7 +56,7 @@ function Detail(props) {
   useEffect(() => { 
 
     // Detail 컴포넌트 렌더링시
-    axios.get()
+    // axios.get()
 
     return function name(params) {
       
@@ -102,21 +109,37 @@ function Detail(props) {
         {input}
       </div>
       <div className="row">
-      <div className="col-md-6">
-        <img src={`https://codingapple1.github.io/shop/shoes${findContent.id+1}.jpg`} width="100%" alt=''/>
-      </div>
-      <div className="col-md-6 mt-4">
-        <h4 className="pt-5">{findContent.title}</h4>
-        <p>{findContent.content}</p>
-        <p>{findContent.price}</p>
+        <div className="col-md-6">
+          <img src={`https://codingapple1.github.io/shop/shoes${findContent.id+1}.jpg`} width="100%" alt=''/>
+        </div>
+        <div className="col-md-6 mt-4">
+          <h4 className="pt-5">{findContent.title}</h4>
+          <p>{findContent.content}</p>
+          <p>{findContent.price}</p>
 
-          <Stock stock={props.stock}></Stock>
-          <button className="btn btn-danger" onClick={() => { props.setStock( stock[0] - 1) }}>주문하기</button> 
-        <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
-        {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
+            <Stock stock={props.stock}></Stock>
+            <button className="btn btn-danger" onClick={() => { props.setStock( stock[0] - 1) }}>주문하기</button> 
+          <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
+          {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
+        </div>
       </div>
+
+      {/* Tab UI 구현하기 */}
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={() => { setAnimationSwitch(false); setTap(0)}}>Active</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={() => { setAnimationSwitch(false); setTap(1)}}>Option 2</Nav.Link>
+        </Nav.Item>
+      </Nav>
       
-      </div>
+      {/* Css Transition in=> 작동 스위치, classnames-enter, classnames-enter-active  */}
+      {/* in={ state 변수를 넣었는데 에러남 } */}
+      <CSSTransition in={ animationSwitch } classNames="wow" timeout={500}>
+        <TapContent tap={tap} toggleSwitch2={ setAnimationSwitch } />
+      </CSSTransition>
+
     </div>
   )
   function Stock(props) { 
@@ -124,6 +147,23 @@ function Detail(props) {
       <p>재고 : {props.stock[0]}</p>
     )
   }
+
+  function TapContent(props) {
+    
+    useEffect(() => { 
+      props.toggleSwitch2(true);
+    })
+
+    if (props.tap === 0) {
+      return <div>000000000</div>
+    } else if (props.tap === 1) { 
+      return <div>111111111</div>
+    } else if (props.tap === 2) { 
+      return <div>22222222</div>
+
+    }
+  }
+
 }
 
 export default Detail

@@ -2,8 +2,17 @@
 
 $mainColor : #ff0000;
 
-.red{
-    color : $mainColor;
+.red {
+    color: $mainColor;
+}
+
+.wow-enter {
+    opacity: 0;
+}
+
+.wow-enter-active {
+    opacity: 1;
+    transition: all 500ms;
 }
 
 // div.container h4{
@@ -34,11 +43,11 @@ $mainColor : #ff0000;
     margin: auto;
 }
 
-.my-alert{
+.my-alert {
     @include funcName()
 }
 
-.my-alert p{
+.my-alert p {
     margin-bottom: 0;
 }
 

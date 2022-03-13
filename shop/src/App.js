@@ -1,10 +1,13 @@
 import './App.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Data from './data.js'
 import { Link, Route, Switch} from 'react-router-dom'
 import Detail from './Detail.js'
 import axios from 'axios'
+import React from 'react'
+
+export let StockContext = React.createContext();
 
 function App() {
 
@@ -37,15 +40,20 @@ function App() {
 
       <Switch>
       <Route exact path={"/"}>
-        <div className="container">
-            <div className="row">
-              {
-                shose.map((el, i) => {
-                  return <Shose data={shose[i]} i={i} key={i}></Shose>  
-                })
-              }
-            {/* <Shose data={shose}/> */}
-          </div>
+          <div className="container">
+            
+            {/* context API로 stock을 해당 감싸진 컴포넌트 안에서 공유한다 */}
+            <StockContext.Provider value={stock}>
+              <div className="row">
+                {
+                  shose.map((el, i) => {
+                    return <Shose data={shose[i]} i={i} key={i}></Shose>  
+                  })
+                }
+              {/* <Shose data={shose}/> */}
+              </div>
+            </StockContext.Provider>
+
           <button className='btn btn-primary' onClick={() => { 
             // 로딩중 UI block
             axios.get('https://codingapple1.github.io/shop/data2.json')
@@ -81,6 +89,10 @@ function App() {
   );
 
   function Shose(props) {
+
+    // props 없이 값 공유하기
+    let stock = useContext(StockContext);
+
     return (
        <div className="col-md-4">
           <img src={`https://codingapple1.github.io/shop/shoes${+props.i + 1}.jpg`} alt="" width="100%" />
