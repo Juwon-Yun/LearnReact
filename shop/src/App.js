@@ -19,8 +19,9 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               {/* react router를 이용한 버튼 만들기 */}
-              <Nav.Link> <Link to={"/"}>Home</Link></Nav.Link>
-              <Nav.Link> <Link to={"/detail"}>Detail</Link> </Nav.Link>
+              {/* a 태그 안에 a 태그가 있어서 에러 해결을 위해 as 문법을 추가한다 */}
+              <Nav.Link as={Link}to={"/"}>Home</Nav.Link>
+              <Nav.Link as={Link}to={"/detail"}>Detail</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -63,7 +64,7 @@ function App() {
   function Shose(props) {
       const temp = [...props.data]
       return temp.map( (el, i) => 
-        <div className="col-md-4">
+        <div className="col-md-4" key={i}>
           <img src={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} alt="" width="100%" />
           <h4> { el.title }</h4>
           <p> {el.content }</p>
