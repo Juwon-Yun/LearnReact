@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useEffect, useState} from 'react'
 import { useHistory, useParams} from 'react-router-dom/cjs/react-router-dom.min'
 import styled from 'styled-components'
@@ -19,8 +20,6 @@ let Title = styled.h4`
 //   componentDidMount() { }
 //   componentWillUnmount() { }
 // }
-
-// 
 
 function Detail(props) {
 
@@ -48,10 +47,15 @@ function Detail(props) {
 
   // useEffect hook 2, 컴포넌트가 사라질 때, unmount
   useEffect(() => { 
+
+    // Detail 컴포넌트 렌더링시
+    axios.get()
+
     return function name(params) {
       
     }
-  })
+    // 한번만
+  }, [])
 
   // useEffect hook 4, useEffect가 실행 될 조건 ex) alerFlag의 state가 바뀔때만!
   // 조건이 빈간이면 [] => 해당 컴포넌트 ( 지금은 Detail )가 Update할 때도 실행안됨
@@ -69,6 +73,7 @@ function Detail(props) {
    }, [alertFlag])
 
   let [input, setInput] = useState('')
+  let [stock, setStock2] = useState(props.stock)
 
   return (
     <div className="container">
@@ -104,7 +109,9 @@ function Detail(props) {
         <h4 className="pt-5">{findContent.title}</h4>
         <p>{findContent.content}</p>
         <p>{findContent.price}</p>
-        <button className="btn btn-danger">주문하기</button> 
+
+          <Stock stock={props.stock}></Stock>
+          <button className="btn btn-danger" onClick={() => { props.setStock( stock[0] - 1) }}>주문하기</button> 
         <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
         {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
       </div>
@@ -112,7 +119,11 @@ function Detail(props) {
       </div>
     </div>
   )
-
+  function Stock(props) { 
+    return (
+      <p>재고 : {props.stock[0]}</p>
+    )
+  }
 }
 
 export default Detail

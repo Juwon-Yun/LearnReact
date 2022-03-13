@@ -4,12 +4,13 @@ import { useState } from 'react';
 import Data from './data.js'
 import { Link, Route, Switch} from 'react-router-dom'
 import Detail from './Detail.js'
-
+import axios from 'axios'
 
 function App() {
 
   let [shose, setShose] = useState(Data);
-  
+  let [stock, setStock] = useState([10, 11, 12]);
+
   return (
     <div className="App">
       <Navbar bg="light" expand="lg">
@@ -37,14 +38,34 @@ function App() {
       <Switch>
       <Route exact path={"/"}>
         <div className="container">
-          <div className="column">
-            <Shose data={shose}/>
+            <div className="row">
+              {
+                shose.map((el, i) => {
+                  return <Shose data={shose[i]} i={i} key={i}></Shose>  
+                })
+              }
+            {/* <Shose data={shose}/> */}
           </div>
+          <button className='btn btn-primary' onClick={() => { 
+            // 로딩중 UI block
+            axios.get('https://codingapple1.github.io/shop/data2.json')
+              .then((res) => {
+                // 로딩중 UI none
+                setShose( [...shose, ...res.data])
+              })
+              .catch(() => {
+                // 로딩중 UI none
+                console.log('실패')
+              })
+              .finally()
+            }}>더보기
+            </button>
         </div>        
-      </Route>
+        </Route>
+        
       {/* :(콜론) 기호 => URL Parameter */}
       <Route path={"/detail/:id"}>
-        <Detail data={shose}/>
+          <Detail data={shose} stock={stock} setStock={setStock}/>
       </Route>
       {/* <Route path={"/ww"} component={Navbar}></Route>     */}
 
@@ -55,22 +76,20 @@ function App() {
 
       {/* Route 중복을 허용하지 않는 문법 => Switch  ex) "/"가 매칭되어 중복되어 Route가 보일 때 */}
     </Switch>
-      
-
     </div>
 
   );
 
   function Shose(props) {
-      const temp = [...props.data]
-      return temp.map( (el, i) => 
-        <div className="col-md-4" key={i}>
-          <img src={`https://codingapple1.github.io/shop/shoes${i+1}.jpg`} alt="" width="100%" />
-          <h4> { el.title }</h4>
-          <p> {el.content }</p>
+    return (
+       <div className="col-md-4">
+          <img src={`https://codingapple1.github.io/shop/shoes${+props.i + 1}.jpg`} alt="" width="100%" />
+          <h4> {props.data.title}</h4>
+          <p> {props.data.content}</p>
         </div>
-      )
+      ) 
   }
 }
 
 export default App;
+ 
