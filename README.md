@@ -22,6 +22,8 @@ if (node v14) {
     npm install node-sass@6 or lastest(default)
 }
 
+npm install axios 
+
 ```
 
 ##### Install Dependency
