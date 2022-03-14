@@ -6,6 +6,7 @@ import './Detail.scss'
 import { StockContext } from './App.js'
 import { Nav } from 'react-bootstrap';
 import { CSSTransition} from 'react-transition-group' 
+import { connect } from 'react-redux'
 
 // styled-components의 사용법[JavaScript] 
 let Box = styled.div`
@@ -116,9 +117,20 @@ function Detail(props) {
           <h4 className="pt-5">{findContent.title}</h4>
           <p>{findContent.content}</p>
           <p>{findContent.price}</p>
-
             <Stock stock={props.stock}></Stock>
-            <button className="btn btn-danger" onClick={() => { props.setStock( stock[0] - 1) }}>주문하기</button> 
+          <button className="btn btn-danger" onClick={() => {
+            props.dispatch({
+              type: 'addContent',
+              payload: {
+                id: findContent.id+1,
+                name: findContent.title,
+                quan: props.stock[findContent.id]
+              }
+            },
+            // 페이지 옮기기
+            history.push('/cart')
+            )
+          }}>주문하기</button> 
           <button className="btn btn-danger" onClick={ () => history.goBack()  }>뒤로가기</button> 
           {/* 특정 경로로 이동시키기 => history.push('/경로명') */}
         </div>
@@ -166,4 +178,10 @@ function Detail(props) {
 
 }
 
-export default Detail
+function getStore(state) {
+  return {
+    state : state,
+  }
+}
+
+export default connect(getStore)(Detail)

@@ -13,9 +13,15 @@ import {Provider} from 'react-redux'
 import tableData from './tableData.js'
 
 // redux에선 state 데이터의 수정방법을 미리 정의한다. default parameter
+// action : payload, type 데이터를 가지고있다. Object type
 const reducer = (state = tableData, action) => {
   // increase라는 데이터 수정 밥법을 정의한 것
-  if (action.type === 'increase') {
+  if (action.type === 'addContent') { 
+    const copy = [...state]
+    copy.push(action.payload)
+    // console.log(action.payload)
+    return copy
+  } else if (action.type === 'increase') {
     const copy = [...state]
     copy[0].quan++
     return copy
