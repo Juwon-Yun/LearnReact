@@ -8,10 +8,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 // HashRouter( /#/이 추가됨 쿼리스트링이 안넘어감 ) vs BrowserRouter 
 
-import { createStore } from 'redux';
+import { combineReducers, createStore } from 'redux';
 import {Provider} from 'react-redux'
 import tableData from './tableData.js'
-
 
 // redux에선 state 데이터의 수정방법을 미리 정의한다. default parameter
 const reducer = (state = tableData, action) => {
@@ -31,8 +30,19 @@ const reducer = (state = tableData, action) => {
 
 }
 
-let store = createStore(reducer)
+// Cart.js에서만 사용하는 데이터이기 때문에 공통 데이터로 쓸 필요가 없다.
+// 즉 이런것은 useState로 사용해야함
+const reducer2 = (state = true, action) => { 
+  if (action.type === 'close') {
+    let copy = state = false
+    return copy
+  } else { 
+    return state
+  }
+}
 
+// let store = createStore(reducer)
+let store = createStore(combineReducers({reducer, reducer2}))
 
 ReactDOM.render(
   <React.StrictMode>

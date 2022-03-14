@@ -39,15 +39,26 @@ function Cart(props){
                     }
                 </tbody>
             </Table>
+            {
+                props.state2
+                ? <div className='my-alert'>
+                    <p>지금 구매하시면 신규할인 20%</p>
+                    <Button variant="outline-info" onClick={() => { props.dispatch( {type: 'close' }) } }>닫기</Button>
+                 </div>
+                : null
+            }
         </div>
     )
 }
 
 // store에 있는 데이터를 전부 가져와서 Props처럼 만들어주는 redux 구문
 function getStore(state) {
+
+    // console.log(state)
     return {
         // content : state[0].name
-        state : state
+        state: state.reducer,
+        state2 : state.reducer2
     }
 }
 
