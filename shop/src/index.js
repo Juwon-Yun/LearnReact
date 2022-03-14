@@ -11,24 +11,30 @@ import { BrowserRouter } from 'react-router-dom';
 import { combineReducers, createStore } from 'redux';
 import {Provider} from 'react-redux'
 import tableData from './tableData.js'
+import data from './data';
 
 // redux에선 state 데이터의 수정방법을 미리 정의한다. default parameter
 // action : payload, type 데이터를 가지고있다. Object type
 const reducer = (state = tableData, action) => {
   // increase라는 데이터 수정 밥법을 정의한 것
+  const copy = [...state]
   if (action.type === 'addContent') { 
-    const copy = [...state]
-    copy.push(action.payload)
-    // console.log(action.payload)
-    return copy
+    
+    let found = state.findIndex(( data ) => +data.id === action.payload.id)
+    // 없으면 -1 리턴
+    if (found >= 0) {
+      copy[found].quan++
+      return copy
+    } else { 
+      copy.push(action.payload)
+      return copy
+    }
   } else if (action.type === 'increase') {
-    const copy = [...state]
-    copy[0].quan++
+    copy[action.payload.id].quan++
     return copy
   } else if (action.type === 'decrease') { 
-    const copy = [...state]
     // if (copy[0].quan <= 0) return
-    copy[0].quan--
+    copy[action.payload.id].quan--
     return copy
   } else { 
     return state

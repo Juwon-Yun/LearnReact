@@ -7,6 +7,7 @@ import Detail from './Detail.js'
 import axios from 'axios'
 import React from 'react'
 import Cart from './Cart.js'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export let StockContext = React.createContext();
 
@@ -14,6 +15,7 @@ function App() {
 
   let [shose, setShose] = useState(Data);
   let [stock, setStock] = useState([10, 11, 12]);
+  let history = useHistory()
 
   return (
     <div className="App">
@@ -102,7 +104,7 @@ function App() {
     let stock = useContext(StockContext);
 
     return (
-       <div className="col-md-4">
+      <div className="col-md-4" onClick={() => history.push(`/detail/${props.data.id}`)}>
           <img src={`https://codingapple1.github.io/shop/shoes${+props.i + 1}.jpg`} alt="" width="100%" />
           <h4> {props.data.title}</h4>
           <p> {props.data.content}</p>
