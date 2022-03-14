@@ -26,6 +26,10 @@ npm install axios
 
 npm install react-transition-group
 
+npm install redux
+
+npm install react-redux
+
 ```
 
 ##### Install Dependency
