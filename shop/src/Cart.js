@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Button } from 'react-bootstrap'
 
 function Cart(props){
     return (
@@ -28,7 +29,10 @@ function Cart(props){
                                     <td>{ el.id }</td>
                                     <td>{ el.name }</td>
                                     <td>{ el.quan }</td>
-                                    <td>Table cell</td>
+                                    <td>
+                                        <Button variant="info" onClick={() => { props.dispatch({type : 'increase'}) }}>+</Button>
+                                        <Button variant="danger" onClick={() => { props.dispatch({ type : 'decrease'}) }}>-</Button>
+                                    </td>
                                 </tr>
                             )
                         })
