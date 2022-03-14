@@ -8,10 +8,30 @@ import { BrowserRouter } from 'react-router-dom';
 
 // HashRouter( /#/이 추가됨 쿼리스트링이 안넘어감 ) vs BrowserRouter 
 
+import {Provider} from 'react-redux'
+import { createStore } from 'redux';
+
+let store = createStore(() => {
+  return [
+    {
+      id: 0,
+      name: '멋진신발',
+      quan: 2
+    },
+    {
+      id: 1,
+      name: '안멋진신발',
+      quan : 1,
+    }
+  ]
+})
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+    <Provider store={store}>
       <App />
+    </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

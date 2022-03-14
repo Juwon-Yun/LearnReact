@@ -6,6 +6,7 @@ import { Link, Route, Switch} from 'react-router-dom'
 import Detail from './Detail.js'
 import axios from 'axios'
 import React from 'react'
+import Cart from './Cart.js'
 
 export let StockContext = React.createContext();
 
@@ -77,10 +78,17 @@ function App() {
       </Route>
       {/* <Route path={"/ww"} component={Navbar}></Route>     */}
 
+
+      <Route path="/cart">
+        <Cart></Cart>
+      </Route>
+
       {/* react-router는 매칭이되는것을 모두 다 보여주기 때문에 보임 */}
       <Route path={"/:id"}>
         <div>아무거나 적었을 때 이거보여주셈</div>
       </Route>
+      
+     
 
       {/* Route 중복을 허용하지 않는 문법 => Switch  ex) "/"가 매칭되어 중복되어 Route가 보일 때 */}
     </Switch>

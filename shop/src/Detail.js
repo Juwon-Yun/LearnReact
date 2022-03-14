@@ -7,7 +7,7 @@ import { StockContext } from './App.js'
 import { Nav } from 'react-bootstrap';
 import { CSSTransition} from 'react-transition-group' 
 
-// styled-components의 사용법
+// styled-components의 사용법[JavaScript] 
 let Box = styled.div`
   padding : 20px;
   background-color : gray;
