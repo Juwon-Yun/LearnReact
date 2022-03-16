@@ -67,9 +67,33 @@ function Cart(props) {
                  </div>
                 : null
             }
+            <Parent name="juwon1" age="1"></Parent>
         </div>
     )
 }
+// Make Components Faster 2 import { memo } from 'react'
+// memo()를 사용하면 불필요한 재렌더링 막기 기능 
+// props가 변경안된 컴포넌트는 렌더링을 막아야한다.
+
+function Parent(props) {
+    return (
+        <div>
+            <Child1 name={ props.name }></Child1>
+            <Child2 age={ props.age }></Child2>
+        </div>
+    )
+}
+function Child1(props) {
+    useEffect(() => { console.log('rendered 1') })
+    return <div>Child1 render</div>
+}
+
+// 기존 porps와 바뀐 props 비교 연산 후 컴포넌트 업데이트를 할지 말지 결정함
+// 컴포넌트 크기가 클때만 주로 사용함
+let Child2 = memo((props) => {
+    useEffect(() => { console.log('rendered 2') })
+    return <div>Child2 render</div>
+})
 
 
 
