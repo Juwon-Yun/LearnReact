@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, memo } from 'react'
 import {Table} from 'react-bootstrap'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { Button } from 'react-bootstrap'
@@ -9,6 +9,20 @@ function Cart(props) {
     const state2 = useSelector((state) => state.reducer2)
 
     const dispatch = useDispatch()
+    const clickbtn = () => { 
+        
+    }
+
+    let style = { }
+    
+    // 1.함수나 오브젝트는 선언해서 사용한다
+    //   메모리 성능적인 이점이 있을 수 있다.
+
+    // 2. 애니메이션 막주지말고 transfrom 속성을 이용한다. (rotate, scale 등등)
+
+    // 3. component import 할 때 app.js 방문시 detail, cart 다 미리 로딩함
+    // 그래서 lazy loading 한다.
+    // => cart.js 가 필요할 때에 로딩
 
     return (
         <div>
@@ -56,6 +70,8 @@ function Cart(props) {
         </div>
     )
 }
+
+
 
 // store에 있는 데이터를 전부 가져와서 Props처럼 만들어주는 redux 구문
 // function getStore(state) {

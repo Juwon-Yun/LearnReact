@@ -1,14 +1,20 @@
 import './App.css';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { useState, useContext } from 'react';
+import { useState, useContext, lazy, Suspense } from 'react';
 import Data from './data.js'
 import { Link, Route, Switch} from 'react-router-dom'
-import Detail from './Detail.js'
 import axios from 'axios'
 import React from 'react'
 import Cart from './Cart.js'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
+// make components faster 1 
+// import Detail from './Detail.js'
+// es 6 dynamic import, lazy 
+// 해당 import가 필요할 때 불러온다. lazy는 suspense랑 같이 사용한다.
+let Detail = lazy(() => { return import('./Detail.js') })
+
+// context API
 export let StockContext = React.createContext();
 
 function App() {
@@ -75,8 +81,11 @@ function App() {
         </Route>
         
       {/* :(콜론) 기호 => URL Parameter */}
-      <Route path={"/detail/:id"}>
-          <Detail data={shose} stock={stock} setStock={setStock}/>
+        <Route path={"/detail/:id"}>
+          {/* lazy 로딩 중에 보여줄  fallback이라는 Props를 설정해 로딩동안 보여줄 문구를 설정한다. */}
+          <Suspense fallback={ <div>로딩중이에요</div> }>
+            <Detail data={shose} stock={stock} setStock={setStock}/>
+          </Suspense>
       </Route>
       {/* <Route path={"/ww"} component={Navbar}></Route>     */}
 
